@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Counter from './components/counter.js';
+
+import IncButton from './components/counter1.js';
 class App extends Component {
   render() {
     return (
@@ -15,6 +17,7 @@ class App extends Component {
         </p>
         {console.log("App.js App component -------------")}
         <Counter />
+        <IncButton />
       </div>
     );
   }

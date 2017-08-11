@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import counterActions from '../actions/counterAction.js'
 import counterReducer from '../reducers/counterReducer.js';
 import { createStore } from 'redux'
+import { withHandlers } from 'recompose'
 
 const store = createStore(counterReducer)
 console.log('counter.js : store.getState() ---------------', store.getState());
