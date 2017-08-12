@@ -1,19 +1,24 @@
+
+
 const startingState = {
   counter: 0,
 }
 
-const reducer = (state=startingState, action) => {
-  console.log("counterReducer.js -------------", action)
+const Reducer1 = (state=startingState, action) => {
+  console.log("counterReducer1.js -------------", action)
   switch(action.type){
     case 'INCREMENT': {
+      console.log("counterReducer1.js: >>>> Increment invoked .....")
       return {...state, counter: action.payload}
       break;
     }
     case 'DECREMENT': {
+      console.log("counterReducer1.js: >>>> Decrement invoked .....")
       return {...state, counter: state.counter - 1}
       break;
     }
     case 'RESET': {
+      console.log("counterReducer1.js: >>>> Reset invoked .....")
       return {...state, counter: 0}
       break;
     }
@@ -24,4 +29,4 @@ const reducer = (state=startingState, action) => {
   return state
 }
 
-export default reducer;
+export default Reducer1;

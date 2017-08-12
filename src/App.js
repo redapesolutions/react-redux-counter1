@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Counter from './components/counter.js';
+// import Counter from './components/counter.js';
+import Counter1 from './components/counter1.js';
+import GetReduxState from './components/reduxCounter1';
+
 class App extends Component {
   render() {
     return (
@@ -14,7 +17,9 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         {console.log("App.js App component -------------")}
-        <Counter />
+        {/* <Counter /> */}
+        <Counter1 />
+        <GetReduxState />
       </div>
     );
   }
