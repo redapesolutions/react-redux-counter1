@@ -1,29 +1,28 @@
-const increment = (counter) => {
-
-  console.log("counterAction.js increment: ---------- ", counter)
+const increment = (step=1) => {
+  console.log('dsadsa', step)
   return {
-    type: 'INCREMENT', 
-    payload: counter += 1,
+    type: 'INCREMENT',
+    step,
   }
 }
 
-const decrement = (counter) => {
+const decrement = (step=1) => {
   return {
-    type: 'DECREMENT', 
-    payload: counter -=1 , 
+    type: 'DECREMENT',
+    step
   }
 }
 
-const reset = (counter) => {
+const reset = () => {
   return {
-    type: 'RESET', 
-    payload: 0,
+    type: 'SET',
+    value: 0,
   }
 }
 
-const funcs = { 
-  increment: increment, 
-  decrement: decrement, 
+const funcs = {
+  increment: increment,
+  decrement: decrement,
   reset: reset,
 }
 export default funcs;

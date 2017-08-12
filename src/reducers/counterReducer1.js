@@ -9,24 +9,20 @@ const Reducer1 = (state=startingState, action) => {
   switch(action.type){
     case 'INCREMENT': {
       console.log("counterReducer1.js: >>>> Increment invoked .....")
-      return {...state, counter: action.payload}
-      break;
+      return {...state, counter: state.counter + action.step}
     }
     case 'DECREMENT': {
       console.log("counterReducer1.js: >>>> Decrement invoked .....")
-      return {...state, counter: state.counter - 1}
-      break;
+      return {...state, counter: state.counter - action.step}
     }
-    case 'RESET': {
+    case 'SET': {
       console.log("counterReducer1.js: >>>> Reset invoked .....")
-      return {...state, counter: 0}
-      break;
+      return {...state, counter: action.value}
     }
     default: {
       return state
     }
   }
-  return state
 }
 
 export default Reducer1;

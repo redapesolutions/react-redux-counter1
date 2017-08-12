@@ -1,48 +1,50 @@
 import React, { Component } from 'react';
 import { createStore } from 'redux';
 import Reducer1 from '../reducers/counterReducer1';
+import {connect} from 'react-redux'
+import counterActions from '../actions/counterAction.js'
 
 import { compose, withHandlers, withProps, withState } from 'recompose';
 
-const reduxStore = createStore(Reducer1);
 
-const enhanceButton = compose(   
-  // withState('val', 'valUpdate', 0),
-  withState('reduxStore', 'reduxDispatch', reduxStore),
-  withState('reduxState', 'getReduxState', reduxStore.getState()),
+const enhanceButton = compose(
+  // redux connect works well with compose, awesome right?
+  connect(
+    // Grab the values we actually need from state, only the ones we need
+    state => ({
+      counter: state.counter
+    }),
+    // Grab the methods we need to access, do not give access to dispatch
+    dispatch => ({
+      increment: step => dispatch(counterActions.increment(step)),  // TODO: In theory, this should simply be wrapped in a dispatch() refer to https://github.com/reactjs/react-redux/blob/master/docs/api.md
+      decrement: step => dispatch(counterActions.decrement(step)),  // Not sure why it doesn't seem to dispatch unless coded this way
+      reset: dispatch(counterActions.reset())
+    })
+    /* Supposed to be as simple as
+    _ => ({
+      increment: counterActions.increment,
+      decrement: counterActions.decrement
+    })
+    Worked last time. To be investigated
+    */
+  ),
   withHandlers({
-    onClicks: props => event => {
-      console.log("i'm clicked ................ props: ", props)
-      console.log("i'm clicked ................ event: ", event)
-    },
-    // increment: ({ valUpdate }) => () => valUpdate( (n) => n + 1 ), 
-    reduxDispatchDec: ({ reduxDispatch }) => () => reduxDispatch( (rStore) => rStore.dispatch({type: "DECREMENT"}) ), 
-    reduxDispatchInc: ({ reduxDispatch }) => () => reduxDispatch( (rStore) => rStore.dispatch({ type: "INCREMENT", payload: 10}) ),
-    getReduxState: (props) => () => props.getReduxState( (state) => console.log("state: ", state))
+    // Now we override increment because the action expects a "step" not a mouse event
+    increment: props => _ => props.increment(1),
+    decrement: props => _ => props.decrement(1)
   })
 )
-// ------------  Testing start----------------------
-const comp = ({ x }) => <div> {x} </div>;
 
-const numberEnhance = compose(
-  withProps( ({x}) => ({ x: x + 2 }) ),
-  withProps( ({x}) => ({ x: x * 2 }) )
-);
-// ------------  Testing end ----------------------
-
-// Question :  HOC coupling with Components: 
-// In case below, component Counter needs to know there is such function called onClicks and increment. 
-// But then, it seems quite COUPLED between the HOC and component Counter. 
+// Question :  HOC coupling with Components:
+// In case below, component Counter needs to know there is such function called onClicks and increment.
+// But then, it seems quite COUPLED between the HOC and component Counter.
 const Counter = enhanceButton(( props ) => {
-  console.log("PROPS: --------------", props) 
+  console.log("PROPS: --------------", props)
   return (
     <div>
-      <h2> Testing </h2>
-      <button onClick={props.onClicks}> Press me to invoke onClicks </button>
-      {/* <button onClick={props.increment}> Press to invoke increment </button> */}
-      <button onClick={props.reduxDispatchDec}> Press to invoke reduxDispatchDec  </button>
-      <button onClick={props.reduxDispatchInc}> Press to invoke reduxDispatchInc  </button>
-      <button onClick={props.getReduxState}> Get Redux State </button>
+      <h3>Counter {props.counter}</h3>
+      <button onClick={props.increment}> + </button>
+      <button onClick={props.decrement}> - </button>
     </div>
   )
 })
