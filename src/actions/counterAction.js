@@ -1,5 +1,4 @@
 const increment = (step=1) => {
-  console.log('dsadsa', step)
   return {
     type: 'INCREMENT',
     step,

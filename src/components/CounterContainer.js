@@ -1,12 +1,13 @@
 // Read https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
 // about smart components (which are connected to state)
 // and dumb ones which shouldn't
-import React, { Component } from 'react';
+import React from 'react';
 import {connect} from 'react-redux'
 import { compose, withHandlers } from 'recompose'
 
 import counterActions from '../actions/counterAction'
 import {setStep} from '../actions/step'
+import eventLogger from '../hoc/eventLogger'
 
 import StepSelector from './StepSelector'
 import Counter from './counter1'
@@ -35,10 +36,11 @@ export default compose(
   ),
   withHandlers({
     // Now we override increment because the action expects a "step" not a mouse event
-    increment: props => _ => {console.log('dsadsad');props.increment(props.step)},
+    increment: props => _ => props.increment(props.step),
     decrement: props => _ => props.decrement(props.step),
-    setStep: props => event => props.setStep(parseInt(event.target.value))
-  })
+    setStep: props => event => props.setStep(parseInt(event.target.value, 10))
+  }),
+  eventLogger('increment', 'decrement')
 )(
   (props) => (<div>
     <Counter
