@@ -5,10 +5,10 @@ const startingState = {
 
 export default (state=startingState, action) => {
   switch(action.type){
-    case 'SET': {
+    case 'SET_STEP': {
       return {step: action.value}
     }
-    case 'RESET':
+    case 'RESET_STEP':
       return {...startingState}
     default: {
       return state

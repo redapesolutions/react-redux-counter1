@@ -7,21 +7,18 @@ const startingState = {
 const Reducer1 = (state=startingState, action) => {
   console.log("counterReducer1.js -------------", action)
   switch(action.type){
-    case 'INCREMENT': {
-      console.log("counterReducer1.js: >>>> Increment invoked .....")
+    case 'INCREMENT':
       return {...state, counter: state.counter + action.step}
-    }
-    case 'DECREMENT': {
-      console.log("counterReducer1.js: >>>> Decrement invoked .....")
+    
+    case 'DECREMENT':
       return {...state, counter: state.counter - action.step}
-    }
-    case 'SET': {
-      console.log("counterReducer1.js: >>>> Reset invoked .....")
+
+    case 'SET':
       return {...state, counter: action.value}
-    }
-    default: {
+
+    default:
       return state
-    }
+
   }
 }
 
