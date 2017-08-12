@@ -18,7 +18,7 @@ const enhanceButton = compose(
     dispatch => ({
       increment: step => dispatch(counterActions.increment(step)),  // TODO: In theory, this should simply be wrapped in a dispatch() refer to https://github.com/reactjs/react-redux/blob/master/docs/api.md
       decrement: step => dispatch(counterActions.decrement(step)),  // Not sure why it doesn't seem to dispatch unless coded this way
-      reset: dispatch(counterActions.reset())
+      reset: _ => dispatch(counterActions.reset())
     })
     /* Supposed to be as simple as
     _ => ({
@@ -45,6 +45,7 @@ const Counter = enhanceButton(( props ) => {
       <h3>Counter {props.counter}</h3>
       <button onClick={props.increment}> + </button>
       <button onClick={props.decrement}> - </button>
+      <button onClick={props.reset}> x </button>
     </div>
   )
 })
