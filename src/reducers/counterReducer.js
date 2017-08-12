@@ -1,22 +1,27 @@
 
 const startingState = {
-  counter: 0,
+  counter: 1,
+  value: 1,
+  counter2: 1
 }
 
 const reducer = (state=startingState, action) => {
-  console.log("counterReducer.js -------------", action)
   switch(action.type){
     case 'INCREMENT': {
-      return {...state, counter: action.payload}
+      return {...state, counter: state.counter + parseInt(action.payload)}
       break;
     }
     case 'DECREMENT': {
-      return {...state, counter: state.counter - 1}
+      return {...state, counter: state.counter - action.payload}
       break;
     }
     case 'RESET': {
-      return {...state, counter: 0}
+      return {...state, counter: action.payload}
       break;
+    }
+    case 'MODIFYVAL': {
+      const num = action.payload
+      return {...state, counter2: action.payload}
     }
     default: {
       return state

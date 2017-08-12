@@ -5,27 +5,81 @@ import counterReducer from '../reducers/counterReducer.js';
 import { createStore } from 'redux'
 
 const store = createStore(counterReducer)
-console.log('counter.js : store.getState() ---------------', store.getState());
+
+class ParentComponent extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    return (
+      <div>
+        <IncrementForm {...this.props} />
+        <Counter {...this.props} />
+      </div>
+    )
+  }
+}
+
+class IncrementForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: 1, 
+      finalVal: 1
+    }
+  }
+
+  dispatchIncrementVal = (event) => {
+  }
+
+  handleChange = (e) => {
+    const v = e.target.value;
+    this.setState({...this.state, value: v})
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    alert(this.state.value)
+    this.props.dispatch(counterActions.modifyValue(this.state.value))
+  }
+
+  render() {
+    console.log(this.state)
+    return (
+      <div> 
+        <h3> Increment Form </h3>
+        <form onSubmit={this.handleSubmit}>
+          Value 
+          <input 
+            value={this.state.value} 
+            type="number" 
+            name="val" 
+            onChange={this.handleChange}
+          />
+          <input type="submit" value="submit" />
+        </form>
+      </div>
+    )
+  }
+}
 
 
 class Counter extends React.Component {
   constructor(props) {
-    console.log('Initialising counter: counter.js')
     super(props)
   }
   handleCounterButton = (event) => {
+    const count = this.props.counter;
     if (event.target.name == "increment") {
-      this.props.dispatch(counterActions.increment(this.props.counter.counter))
+      this.props.dispatch(counterActions.increment(count.counter2))
     } else if (event.target.name == "decrement") {
-      this.props.dispatch(counterActions.decrement(this.props.counter.counter))
+      this.props.dispatch(counterActions.decrement(count.counter2))
     } else {
       this.props.dispatch(counterActions.reset(this.props.counter.counter))
     }
   }
 
   render() {
-    console.log("counter.js render: ---- ", this.props)
-    console.log('counter.js : store.getState() inside render ---------------', store.getState());
     return (
       <div>
         <h1> {this.props.counter.counter}</h1>
@@ -54,7 +108,7 @@ const mapStateToProps = state => {
   console.log("counter.js mapStateToProps ---------", state)
   return {
     counter: state.counterReducer,
-    counter2: '',
+    counter2: state.counterReducer,
   }
 }
 
@@ -69,6 +123,6 @@ const mapDispatchToProps = dispatch => {
 const VisibleCounter = connect(
   mapStateToProps, 
   mapDispatchToProps
-)(Counter)
+)(ParentComponent)
 
 export default VisibleCounter 

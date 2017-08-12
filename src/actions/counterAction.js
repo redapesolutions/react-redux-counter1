@@ -1,16 +1,14 @@
-const increment = (counter) => {
-
-  console.log("counterAction.js increment: ---------- ", counter)
+const increment = (counter2) => {
   return {
     type: 'INCREMENT', 
-    payload: counter += 1,
+    payload: counter2,
   }
 }
 
-const decrement = (counter) => {
+const decrement = (counter2) => {
   return {
     type: 'DECREMENT', 
-    payload: counter -=1 , 
+    payload: counter2 ,  
   }
 }
 
@@ -21,9 +19,17 @@ const reset = (counter) => {
   }
 }
 
+const modifyValue = (value) => {
+  return {
+    type: 'MODIFYVAL', 
+    payload: value,
+  }
+}
+
 const funcs = { 
   increment: increment, 
   decrement: decrement, 
   reset: reset,
+  modifyValue: modifyValue,
 }
 export default funcs;
