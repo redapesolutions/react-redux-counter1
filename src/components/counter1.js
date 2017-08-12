@@ -12,7 +12,7 @@ const enhanceButton = compose(
   connect(
     // Grab the values we actually need from state, only the ones we need
     state => ({
-      counter: state.counter
+      counter: state.counter.counter
     }),
     // Grab the methods we need to access, do not give access to dispatch
     dispatch => ({
@@ -20,11 +20,12 @@ const enhanceButton = compose(
       decrement: step => dispatch(counterActions.decrement(step)),  // Not sure why it doesn't seem to dispatch unless coded this way
       reset: _ => dispatch(counterActions.reset())
     })
-    /* Supposed to be as simple as
-    _ => ({
-      increment: counterActions.increment,
-      decrement: counterActions.decrement
-    })
+    /* Supposed to be as simple as */
+    // _ => ({
+    //   increment: counterActions.increment,
+    //   decrement: counterActions.decrement
+    // })
+    /*
     Worked last time. To be investigated
     */
   ),

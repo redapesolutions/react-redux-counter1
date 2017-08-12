@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 
-import counterReducer from './counterReducer.js'
+import counter from './counterReducer1.js'
+import step from './step.js'
 
 console.log("index.js reducers #########")
 export default combineReducers({
-  counterReducer,
+  counter,
+  step
 });

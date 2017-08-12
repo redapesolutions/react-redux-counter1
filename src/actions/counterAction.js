@@ -20,9 +20,8 @@ const reset = () => {
   }
 }
 
-const funcs = {
-  increment: increment,
-  decrement: decrement,
-  reset: reset,
+export default {
+  increment,
+  decrement,
+  reset,
 }
-export default funcs;
